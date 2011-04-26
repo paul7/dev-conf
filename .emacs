@@ -9,11 +9,13 @@
 (require 'closure-template-html-mode)
 (setq slime-complete-symbol*-fancy t)
 (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-
 (setq slime-net-coding-system 'utf-8-unix)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-(global-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)
+
+(add-hook 'repl-mode-hook 
+  (lambda ()
+    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
 
 ;; Text and the such
 ;; Use colors to highlight commands, etc.
@@ -112,3 +114,7 @@
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+(add-hook 'tuareg-interactive-mode-hook
+  (lambda ()
+    (local-set-key (kbd "C-c h") 'caml-help)
+    (local-set-key (kbd "C-c TAB") 'tuareg-complete)))
