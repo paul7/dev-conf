@@ -1,0 +1,6 @@
+#!/bin/sh
+
+HOST=`hostname`
+
+SBCL_HOME=~/lisp-local/lib/sbcl emacs-snapshot -l -T "OCaml @ $HOST" ~/.emacs-tuareg $@
+
