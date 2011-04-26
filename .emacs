@@ -105,3 +105,10 @@
 
 (load-library "hideshow")
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
+
+; Tuareg
+(add-to-list 'load-path "/home/paul7/elisp/tuareg")
+(require 'tuareg)
+(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
