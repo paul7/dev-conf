@@ -1,0 +1,6 @@
+(split-window-horizontally)
+(eshell)
+(other-window 1)
+(slime)
+(other-window 1)
+

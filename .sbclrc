@@ -1,0 +1,36 @@
+
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(push #P"/home/paul7/systems/" asdf:*central-registry*)
+
+(defgeneric module-output-files (operation component))
+
+(defmethod module-output-files ((class symbol) component)
+  (module-output-files (make-instance class) component))
+
+(defmethod module-output-files ((operation asdf:compile-op) (component asdf:source-file))
+  (asdf:output-files operation component))
+
+(defmethod module-output-files ((operation asdf:compile-op) (component asdf:module))
+  (mapcan #'(lambda (com) 
+	      (module-output-files operation com))
+	  (asdf:module-components component)))
+
+(defun cleanup-system/impl (system)
+  (dolist (file (module-output-files 'asdf:compile-op 
+				     (asdf:find-system system)))
+    (when (probe-file file)
+      (print file)
+      (delete-file file)))
+  (asdf:clear-system system))
+
+(defmacro cleanup-system (system)
+  `(cleanup-system/impl ',system))
+
+(export 'module-output-files)
+(export 'cleanup-system)

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+HOST=`hostname`
+
+cd ~/lisp
+
+SBCL_HOME=~/lisp-local/lib/sbcl emacs-snapshot -l -T "Lisp @ $HOST" ~/.emacs-slime $@
+
