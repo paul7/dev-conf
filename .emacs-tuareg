@@ -1,6 +1,4 @@
 (split-window-horizontally)
 (eshell)
-(other-window 1)
 (tuareg-run-caml)
-(other-window 1)
 

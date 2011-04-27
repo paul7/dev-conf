@@ -109,11 +109,14 @@
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 
 ; Tuareg
+(setq inferior-ocaml-program "ocaml+g")
 (add-to-list 'load-path "/home/paul7/elisp/tuareg")
 (require 'tuareg)
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+(autoload 'tuareg-imenu-set-imenu "tuareg-imenu" 
+          "Configuration of imenu for tuareg" t) 
 (add-hook 'tuareg-interactive-mode-hook
   (lambda ()
     (local-set-key (kbd "C-c h") 'caml-help)
