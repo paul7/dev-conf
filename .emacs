@@ -120,4 +120,7 @@
 (add-hook 'tuareg-interactive-mode-hook
   (lambda ()
     (local-set-key (kbd "C-c h") 'caml-help)
-    (local-set-key (kbd "C-c TAB") 'tuareg-complete)))
+    (local-set-key (kbd "<tab>") 'tuareg-complete)))
+(add-hook 'tuareg-mode-hook
+  (lambda ()
+    (local-set-key (kbd "C-c Tab") 'tuareg-complete)))
