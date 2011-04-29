@@ -17,6 +17,10 @@
   (lambda ()
     (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
 
+(add-hook 'lisp-mode-hook 
+  (lambda ()
+    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
+
 ;; Text and the such
 ;; Use colors to highlight commands, etc.
 (global-font-lock-mode t)
