@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ocamlmktop -custom -o ~/bin/ocaml+g graphics.cma dynlink.cma camlp4/camlp4o.cma  -cclib -lX11
