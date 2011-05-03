@@ -113,7 +113,7 @@
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 
 ; Tuareg
-(setq inferior-ocaml-program "ocaml+g")
+(setq inferior-ocaml-program "ocaml+g -I +threads -I +camlp4")
 (add-to-list 'load-path "/home/paul7/elisp/tuareg")
 (require 'tuareg)
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
@@ -127,4 +127,4 @@
     (local-set-key (kbd "<tab>") 'tuareg-complete)))
 (add-hook 'tuareg-mode-hook
   (lambda ()
-    (local-set-key (kbd "C-c Tab") 'tuareg-complete)))
+    (local-set-key (kbd "<C-tab>") 'tuareg-complete)))
