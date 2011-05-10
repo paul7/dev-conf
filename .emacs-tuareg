@@ -1,4 +1,5 @@
 (split-window-horizontally)
 (eshell)
 (tuareg-run-caml)
+(ocaml-add-path "/home/paul7/ocaml/lib")
 

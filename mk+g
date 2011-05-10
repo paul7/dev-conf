@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#ocamlmktop -custom -thread -o ~/bin/ocaml+g graphics.cma dynlink.cma camlp4/camlp4o.cma unix.cma threads/threads.cma -cclib -lX11 -cclib -lthreads
+ocamlmktop -custom -thread -o ~/bin/ocaml+g graphics.cma dynlink.cma camlp4/camlp4o.cma unix.cma threads/threads.cma -cclib -lX11 -cclib -lthreads
 
-ocamlmktop -custom -thread -o ~/bin/ocaml+g graphics.cma dynlink.cma unix.cma threads/threads.cma -cclib -lX11 -cclib -lthreads
+#ocamlmktop -custom -thread -o ~/bin/ocaml+g graphics.cma dynlink.cma unix.cma threads/threads.cma -cclib -lX11 -cclib -lthreads

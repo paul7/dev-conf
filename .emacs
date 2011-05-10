@@ -113,7 +113,7 @@
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 
 ; Tuareg
-(setq inferior-ocaml-program "ocaml+g -I +threads -I +camlp4")
+(setq inferior-ocaml-program "ocaml+g -I +threads -I +camlp4 -I /home/paul7/ocaml/lib")
 (add-to-list 'load-path "/home/paul7/elisp/tuareg")
 (require 'tuareg)
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
@@ -121,6 +121,7 @@
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
 (autoload 'tuareg-imenu-set-imenu "tuareg-imenu" 
           "Configuration of imenu for tuareg" t) 
+
 (add-hook 'tuareg-interactive-mode-hook
   (lambda ()
     (local-set-key (kbd "C-c h") 'caml-help)
@@ -128,3 +129,4 @@
 (add-hook 'tuareg-mode-hook
   (lambda ()
     (local-set-key (kbd "<C-tab>") 'tuareg-complete)))
+
