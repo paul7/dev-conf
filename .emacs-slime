@@ -1,6 +1,9 @@
 (split-window-horizontally)
 (eshell)
 (other-window 1)
+(split-window-vertically)
+(w3m)
+(other-window 1)
 (slime)
 (other-window 1)
 

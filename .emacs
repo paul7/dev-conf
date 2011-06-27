@@ -55,6 +55,8 @@
 (require 'w3m-load)
 (require 'hyperspec)
 
+(setq w3m-use-tab t)
+
 (defun hyperspec-lookup (&optional symbol-name)
  (interactive)
  (let ((browse-url-browser-function 'w3m-browse-url))
@@ -113,7 +115,7 @@
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 
 ; Tuareg
-(setq inferior-ocaml-program "ocaml+g -I +threads -I +camlp4 -I /home/paul7/ocaml/lib")
+(setq inferior-ocaml-program "ocaml+g -rectypes -I +threads -I +camlp4 -I /home/paul7/ocaml/lib")
 (add-to-list 'load-path "/home/paul7/elisp/tuareg")
 (require 'tuareg)
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
@@ -130,3 +132,11 @@
   (lambda ()
     (local-set-key (kbd "<C-tab>") 'tuareg-complete)))
 
+(global-set-key [M-left] 'windmove-left)          ; move to left windnow
+(global-set-key [M-right] 'windmove-right)        ; move to right window
+(global-set-key [M-up] 'windmove-up)              ; move to upper window
+(global-set-key [M-down] 'windmove-down)          ; move to downer window
+
+(defun load-slime ()
+  (interactive)
+  (load-file "~/.emacs-slime"))
