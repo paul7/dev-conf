@@ -51,6 +51,7 @@
 (show-paren-mode 1)
 
 (scroll-bar-mode nil)
+(menu-bar-mode nil)
 
 (require 'w3m-load)
 (require 'hyperspec)
