@@ -19,6 +19,10 @@
     (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
 
 ;; hs 
+(require 'w3m-load)
+
+(setq w3m-use-tab t)
+
 (require 'hyperspec)
 
 (defun hyperspec-lookup (&optional symbol-name)
