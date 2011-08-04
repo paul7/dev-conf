@@ -90,6 +90,12 @@
 (global-set-key [M-up] 'windmove-up)              ; move to upper window
 (global-set-key [M-down] 'windmove-down)          ; move to downer window
 
+;; this is somehow broken with -nw
+(global-set-key [A-left] 'windmove-left)          ; move to left windnow
+(global-set-key [A-right] 'windmove-right)        ; move to right window
+(global-set-key [A-up] 'windmove-up)              ; move to upper window
+(global-set-key [A-down] 'windmove-down)          ; move to downer window
+
 (defun load-slime ()
   (interactive)
   (load-file "~/.emacs-slime"))
