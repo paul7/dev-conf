@@ -101,4 +101,10 @@
 (defun load-tuareg ()
   (interactive)
   (load-file "~/.emacs-tuareg"))
-  
+
+(add-hook 'cperl-mode-hook
+          (function (lambda ()
+		      (setq indent-tabs-mode t))))
+(add-hook 'perl-mode-hook
+          (function (lambda ()
+		      (setq indent-tabs-mode t))))
