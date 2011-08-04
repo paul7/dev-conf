@@ -1,3 +1,35 @@
+;; Set up the Common Lisp environment
+(add-to-list 'load-path "/home/paul7/lisp/cl-closure-template/")
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+(require 'slime)
+(slime-setup '(slime-fancy slime-asdf))
+(require 'closure-template-html-mode)
+(setq slime-complete-symbol*-fancy t)
+(setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+(setq slime-net-coding-system 'utf-8-unix)
+
+;; completion
+(add-hook 'repl-mode-hook 
+  (lambda ()
+    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
+
+(add-hook 'lisp-mode-hook 
+  (lambda ()
+    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
+
+;; hs 
+(require 'hyperspec)
+
+(defun hyperspec-lookup (&optional symbol-name)
+ (interactive)
+ (let ((browse-url-browser-function 'w3m-browse-url))
+    (if symbol-name
+        (common-lisp-hyperspec symbol-name)
+      (call-interactively 'common-lisp-hyperspec))))
+
+;; frame layout
+(delete-other-windows)
 (split-window-horizontally)
 (eshell)
 (other-window 1)
@@ -6,4 +38,6 @@
 (other-window 1)
 (slime)
 (other-window 1)
+
+
 

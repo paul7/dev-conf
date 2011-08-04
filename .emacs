@@ -1,25 +1,7 @@
 (add-to-list 'load-path "/home/paul7/elisp")
 
-;; Set up the Common Lisp environment
-(add-to-list 'load-path "/home/paul7/lisp/cl-closure-template/")
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
-(require 'slime)
-(slime-setup '(slime-fancy slime-asdf))
-(require 'closure-template-html-mode)
-(setq slime-complete-symbol*-fancy t)
-(setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-(setq slime-net-coding-system 'utf-8-unix)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-
-(add-hook 'repl-mode-hook 
-  (lambda ()
-    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
-
-(add-hook 'lisp-mode-hook 
-  (lambda ()
-    (local-set-key (kbd "<C-tab>") 'slime-indent-and-complete-symbol)))
 
 ;; Text and the such
 ;; Use colors to highlight commands, etc.
@@ -54,21 +36,13 @@
 (menu-bar-mode nil)
 
 (require 'w3m-load)
-(require 'hyperspec)
 
 (setq w3m-use-tab t)
 
-(defun hyperspec-lookup (&optional symbol-name)
- (interactive)
- (let ((browse-url-browser-function 'w3m-browse-url))
-    (if symbol-name
-        (common-lisp-hyperspec symbol-name)
-      (call-interactively 'common-lisp-hyperspec))))
-
-(autoload 'imaxima "imaxima" "Frontend of Maxima CAS" t)
-(autoload 'imath "imath" "Interactive Math mode" t)
-(autoload 'imath-mode "imath" "Interactive Math mode" t)
-(setq imaxima-fnt-size "Large") 
+;(autoload 'imaxima "imaxima" "Frontend of Maxima CAS" t)
+;(autoload 'imath "imath" "Interactive Math mode" t)
+;(autoload 'imath-mode "imath" "Interactive Math mode" t)
+;(setq imaxima-fnt-size "Large") 
 
 ; (if window-system (progn
 ; (create-fontset-from-fontset-spec
@@ -115,24 +89,6 @@
 (load-library "hideshow")
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 
-; Tuareg
-(setq inferior-ocaml-program "ocaml+g -rectypes -I +threads -I +camlp4 -I /home/paul7/ocaml/lib")
-(add-to-list 'load-path "/home/paul7/elisp/tuareg")
-(require 'tuareg)
-(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
-(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
-(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
-(autoload 'tuareg-imenu-set-imenu "tuareg-imenu" 
-          "Configuration of imenu for tuareg" t) 
-
-(add-hook 'tuareg-interactive-mode-hook
-  (lambda ()
-    (local-set-key (kbd "C-c h") 'caml-help)
-    (local-set-key (kbd "<tab>") 'tuareg-complete)))
-(add-hook 'tuareg-mode-hook
-  (lambda ()
-    (local-set-key (kbd "<C-tab>") 'tuareg-complete)))
-
 (global-set-key [M-left] 'windmove-left)          ; move to left windnow
 (global-set-key [M-right] 'windmove-right)        ; move to right window
 (global-set-key [M-up] 'windmove-up)              ; move to upper window
@@ -141,3 +97,8 @@
 (defun load-slime ()
   (interactive)
   (load-file "~/.emacs-slime"))
+
+(defun load-tuareg ()
+  (interactive)
+  (load-file "~/.emacs-tuareg"))
+  
