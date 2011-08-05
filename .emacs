@@ -106,9 +106,10 @@
 
 (add-hook 'cperl-mode-hook
           (function (lambda ()
-		      (setq standard-indent 8)
 		      (setq indent-tabs-mode t))))
 (add-hook 'perl-mode-hook
           (function (lambda ()
-		      (setq standard-indent 8)
 		      (setq indent-tabs-mode t))))
+
+(setq perl-indent-level 8)
+(setq cperl-indent-level 8)
