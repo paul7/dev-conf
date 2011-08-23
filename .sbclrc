@@ -34,3 +34,11 @@
 
 (export 'module-output-files)
 (export 'cleanup-system)
+
+(defmacro test (form)
+  (let ((res (gensym "RES")))
+    `(let ((,res ,form))
+       (format *error-output* "~A => ~A~%" ',form ,res)
+       ,res)))
+
+(export 'test)
