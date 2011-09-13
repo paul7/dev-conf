@@ -104,6 +104,10 @@
   (interactive)
   (load-file "~/.emacs-tuareg"))
 
+(defun load-haskell ()
+  (interactive)
+  (load-file "~/.emacs-haskell"))
+
 (add-hook 'cperl-mode-hook
           (function (lambda ()
 		      (setq indent-tabs-mode t))))
@@ -113,3 +117,19 @@
 
 (setq perl-indent-level 8)
 (setq cperl-indent-level 8)
+
+;;; TCL
+
+(setq tcl-application "/usr/bin/tclsh8.5")
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((Syntax . COMMON-LISP) (Package . CL-PPCRE) (Base . 10) (Syntax . ANSI-Common-Lisp)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
