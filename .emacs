@@ -1,5 +1,7 @@
 (add-to-list 'load-path "/home/paul7/elisp")
 
+(setq-default tab-width 4)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
@@ -108,6 +110,10 @@
   (interactive)
   (load-file "~/.emacs-haskell"))
 
+(defalias 'perl-mode 'cperl-mode)
+
+(setq cperl-hairy t)
+
 (add-hook 'cperl-mode-hook
           (function (lambda ()
 		      (setq indent-tabs-mode t))))
@@ -115,8 +121,10 @@
           (function (lambda ()
 		      (setq indent-tabs-mode t))))
 
-(setq perl-indent-level 8)
-(setq cperl-indent-level 8)
+(setq cperl-indent-level 4)
+(setq cperl-continued-statement-offset 0
+      cperl-close-paren-offset -4
+      cperl-indent-parens-as-block t)
 
 ;;; TCL
 
