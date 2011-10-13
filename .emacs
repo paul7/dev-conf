@@ -1,5 +1,6 @@
 (add-to-list 'load-path "/home/paul7/elisp")
 
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 (require 'uniquify)
