@@ -7,6 +7,10 @@
 
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 
+(add-hook 'haskell-mode-hook 
+   (lambda ()
+     (local-set-key (kbd "C-c C-g") 'hoogle)))
+
 (split-window-horizontally)
 (eshell)
 (run-haskell)
