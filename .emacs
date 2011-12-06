@@ -149,3 +149,10 @@
 (setq w3m-use-tab t)
 
 (setq browse-url-browser-function 'w3m-browse-url)
+
+;;
+
+(setq eshell-started nil)
+(setq w3m-started nil)
+(setq slime-started nil)
+(setq haskell-started nil)
