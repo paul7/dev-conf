@@ -11,6 +11,9 @@
    (lambda ()
      (local-set-key (kbd "C-c C-g") 'hoogle)))
 
+(autoload 'ghc-init "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
 (defun haskell-layout ()
   (interactive)
   (unless eshell-started
