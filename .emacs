@@ -114,6 +114,7 @@
 (defalias 'perl-mode 'cperl-mode)
 
 (setq cperl-hairy t)
+(setq cperl-electric-parens nil)
 
 (add-hook 'cperl-mode-hook
           (function (lambda ()

@@ -14,6 +14,9 @@
 (autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
+(setq ghc-type-key "\C-c\C-S-t")
+(setq ghc-completion-key (kbd "<C-tab>"))
+
 (defun haskell-layout ()
   (interactive)
   (unless eshell-started
