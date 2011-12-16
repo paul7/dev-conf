@@ -113,8 +113,11 @@
 
 (defalias 'perl-mode 'cperl-mode)
 
-(setq cperl-hairy t)
+;(setq cperl-hairy t)
 (setq cperl-electric-parens nil)
+(setq cperl-electric-keywords t)
+(setq cperl-font-lock t)
+(setq cperl-lazy-help-time 1)
 
 (add-hook 'cperl-mode-hook
           (function (lambda ()
