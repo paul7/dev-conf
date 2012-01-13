@@ -160,3 +160,9 @@
 (setq w3m-started nil)
 (setq slime-started nil)
 (setq haskell-started nil)
+
+;;; TRAMP
+
+(require 'tramp)
+(setq tramp-default-method "scpc")
+(setq tramp-default-user "paul7")
