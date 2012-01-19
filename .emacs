@@ -161,6 +161,16 @@
 (setq slime-started nil)
 (setq haskell-started nil)
 
+(defun default-layout ()
+  (interactive)
+  (unless eshell-started
+    (eshell)
+    (setq eshell-started t))
+  (delete-other-windows)
+  (switch-to-buffer "*eshell*"))
+
+(default-layout)
+
 ;;; TRAMP
 
 (require 'tramp)
