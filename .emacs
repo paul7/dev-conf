@@ -176,3 +176,6 @@
 (require 'tramp)
 (setq tramp-default-method "scpc")
 (setq tramp-default-user "paul7")
+
+;;; workaround for grep-mode lossage
+(grep-apply-setting 'grep-command "echo; grep -n -e ") 
