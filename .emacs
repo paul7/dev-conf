@@ -178,4 +178,5 @@
 (setq tramp-default-user "paul7")
 
 ;;; workaround for grep-mode lossage
+(autoload 'grep-apply-setting "grep")
 (grep-apply-setting 'grep-command "echo; grep -n -e ") 
