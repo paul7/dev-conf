@@ -184,7 +184,7 @@
 ;; whitespace-mode
 
 (require 'whitespace)
-(setq whitespace-style '(face tabs spaces newline space-mark tab-mark newline-mark))
+(setq whitespace-style '(face tabs spaces space-mark tab-mark))
 (global-set-key "\C-cw" 'whitespace-mode)
 (add-hook 'cperl-mode-hook
           (function (lambda ()
