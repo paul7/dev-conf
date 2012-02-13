@@ -26,7 +26,7 @@
 (setq visible-bell t)
 ;; Remove icons toolbar
 (if (> emacs-major-version 20)
-(tool-bar-mode -1))
+  (tool-bar-mode -1))
 ;; Use y or n instead of yes or not
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; no visible bell
@@ -180,3 +180,12 @@
 ;;; workaround for grep-mode lossage
 (autoload 'grep-apply-setting "grep")
 (grep-apply-setting 'grep-command "echo; grep -n -e ") 
+
+;; whitespace-mode
+
+(require 'whitespace)
+(setq whitespace-style '(face tabs spaces newline space-mark tab-mark newline-mark))
+(global-set-key "\C-cw" 'whitespace-mode)
+(add-hook 'cperl-mode-hook
+          (function (lambda ()
+		      (whitespace-mode))))
