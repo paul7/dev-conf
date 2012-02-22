@@ -121,10 +121,10 @@
 
 (add-hook 'cperl-mode-hook
           (function (lambda ()
-		      (setq indent-tabs-mode t))))
+                      (setq indent-tabs-mode t))))
 (add-hook 'perl-mode-hook
           (function (lambda ()
-		      (setq indent-tabs-mode t))))
+                      (setq indent-tabs-mode t))))
 
 (setq cperl-indent-level 4)
 (setq cperl-continued-statement-offset 0
@@ -167,7 +167,8 @@
     (eshell)
     (setq eshell-started t))
   (delete-other-windows)
-  (switch-to-buffer "*eshell*"))
+  (switch-to-buffer "*eshell*")
+  (end-of-buffer))
 
 (default-layout)
 
@@ -188,4 +189,4 @@
 (global-set-key "\C-cw" 'whitespace-mode)
 (add-hook 'cperl-mode-hook
           (function (lambda ()
-		      (whitespace-mode))))
+                      (whitespace-mode))))

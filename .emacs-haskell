@@ -1,3 +1,4 @@
+;; -*- Mode: Emacs-Lisp -*-
 (load "~/elisp/haskell-mode/haskell-site-file.el")
 
 (setq haskell-program-name "ghci")
@@ -33,10 +34,12 @@
   (delete-other-windows)
   (split-window-horizontally)
   (switch-to-buffer "*eshell*")
+  (end-of-buffer)
   (other-window 1)
   (split-window-vertically)
   (switch-to-buffer "*w3m*")
   (other-window 1)
-  (switch-to-buffer "*haskell*"))
+  (switch-to-buffer "*haskell*")
+  (end-of-buffer))
 
 (haskell-layout)
