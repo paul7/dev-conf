@@ -190,3 +190,7 @@
 (add-hook 'cperl-mode-hook
           (function (lambda ()
                       (whitespace-mode))))
+
+;;; server
+
+(server-start)
