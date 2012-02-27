@@ -3,6 +3,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
+(require 'git)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
@@ -139,7 +141,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((Syntax . COMMON-LISP) (Package . CL-PPCRE) (Base . 10) (Syntax . ANSI-Common-Lisp)))))
+ '(safe-local-variable-values (quote ((Package ITERATE :use "COMMON-LISP" :colon-mode :external) (syntax . COMMON-LISP) (Syntax . COMMON-LISP) (Package . CL-PPCRE) (Base . 10) (Syntax . ANSI-Common-Lisp)))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
