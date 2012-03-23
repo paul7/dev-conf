@@ -136,18 +136,6 @@
 ;;; TCL
 
 (setq tcl-application "/usr/bin/tclsh8.5")
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((Package ITERATE :use "COMMON-LISP" :colon-mode :external) (syntax . COMMON-LISP) (Syntax . COMMON-LISP) (Package . CL-PPCRE) (Base . 10) (Syntax . ANSI-Common-Lisp)))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
 
 ;;; W3M
 (require 'w3m-load)
@@ -192,6 +180,25 @@
 (add-hook 'cperl-mode-hook
           (function (lambda ()
                       (whitespace-mode))))
+
+;;; LaTeX
+(setq latex-run-command "pdflatex")
+(defun string-search-and-replace (search replace string)
+  "Replace all instances of SEARCH with REPLACE in STRING."
+  (replace-regexp-in-string (regexp-quote search) replace string))
+
+(defun tex-pdf-view ()
+  "open the pdf after running pdflatex"
+  (interactive)
+  ;; remove the .tex and add .pdf
+  (setq s  (buffer-file-name))
+  (setq st (concat s ".pdf"))
+  (setq stu (string-search-and-replace ".tex" "" st))
+  (tex-send-command (concat "evince " stu)))
+
+(add-hook 'latex-mode-hook
+   (lambda ()
+     (local-set-key (kbd "C-c C-v") 'tex-pdf-view)))
 
 ;;; server
 
