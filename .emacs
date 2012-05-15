@@ -200,6 +200,10 @@
    (lambda ()
      (local-set-key (kbd "C-c C-v") 'tex-pdf-view)))
 
+;;; octave
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+
 ;;; server
 
 (server-start)
