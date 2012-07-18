@@ -8,6 +8,24 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+(when window-system
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1))
+
+(menu-bar-mode -1)
+
+(setq column-number-mode t)
+(setq line-number-mode t)
+
+(setq display-time-24hr-format t)
+(setq display-time-day-and-date t)
+(display-time)
+(setq calendar-date-display-form (quote ((format "%04s-%02d-%02d" year (string-to-int month) (string-to-int day)))))
+(setq calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))))
+(setq calendar-week-start-day 1)
+(setq european-calendar-style t)
+
+(setq initial-scratch-message nil)
 ;; Text and the such
 ;; Use colors to highlight commands, etc.
 (global-font-lock-mode t)
@@ -15,8 +33,6 @@
 (setq inhibit-startup-message t)
 ;; Format the title-bar to always include the buffer name
 (setq frame-title-format "emacs - %b")
-;; Display time
-(display-time)
 ;; Make the mouse wheel scroll Emacs
 (mouse-wheel-mode t)
 ;; Always end a file with a newline
@@ -26,9 +42,6 @@
 (setq next-line-add-newlines nil)
 ;; Flash instead of that annoying bell
 (setq visible-bell t)
-;; Remove icons toolbar
-(if (> emacs-major-version 20)
-  (tool-bar-mode -1))
 ;; Use y or n instead of yes or not
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; no visible bell
@@ -36,9 +49,6 @@
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-
-(scroll-bar-mode nil)
-(menu-bar-mode nil)
 
 ;(autoload 'imaxima "imaxima" "Frontend of Maxima CAS" t)
 ;(autoload 'imath "imath" "Interactive Math mode" t)
@@ -178,6 +188,9 @@
 (setq whitespace-style '(face tabs spaces space-mark tab-mark))
 (global-set-key "\C-cw" 'whitespace-mode)
 (add-hook 'cperl-mode-hook
+          (function (lambda ()
+                      (whitespace-mode))))
+(add-hook 'python-mode-hook
           (function (lambda ()
                       (whitespace-mode))))
 
