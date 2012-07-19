@@ -14,6 +14,10 @@
 
 (menu-bar-mode -1)
 
+(ido-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+
 (setq column-number-mode t)
 (setq line-number-mode t)
 
@@ -24,6 +28,8 @@
 (setq calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))))
 (setq calendar-week-start-day 1)
 (setq european-calendar-style t)
+
+
 
 (setq initial-scratch-message nil)
 ;; Text and the such
@@ -155,6 +161,78 @@
 (setq browse-url-browser-function 'w3m-browse-url)
 
 ;;
+
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+(global-set-key (kbd "C-`") 'push-mark-no-activate)
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+(global-set-key (kbd "M-`") 'jump-to-mark)
+
+(defun exchange-point-and-mark-no-activate ()
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+ (defun ido-goto-symbol (&optional symbol-list)
+      "Refresh imenu and jump to a place in the buffer using Ido."
+      (interactive)
+      (unless (featurep 'imenu)
+        (require 'imenu nil t))
+      (cond
+       ((not symbol-list)
+        (let ((ido-mode ido-mode)
+              (ido-enable-flex-matching
+               (if (boundp 'ido-enable-flex-matching)
+                   ido-enable-flex-matching t))
+              name-and-pos symbol-names position)
+          (unless ido-mode
+            (ido-mode 1)
+            (setq ido-enable-flex-matching t))
+          (while (progn
+                   (imenu--cleanup)
+                   (setq imenu--index-alist nil)
+                   (ido-goto-symbol (imenu--make-index-alist))
+                   (setq selected-symbol
+                         (ido-completing-read "Symbol? " symbol-names))
+                   (string= (car imenu--rescan-item) selected-symbol)))
+          (unless (and (boundp 'mark-active) mark-active)
+            (push-mark nil t nil))
+          (setq position (cdr (assoc selected-symbol name-and-pos)))
+          (cond
+           ((overlayp position)
+            (goto-char (overlay-start position)))
+           (t
+            (goto-char position)))))
+       ((listp symbol-list)
+        (dolist (symbol symbol-list)
+          (let (name position)
+            (cond
+             ((and (listp symbol) (imenu--subalist-p symbol))
+              (ido-goto-symbol symbol))
+             ((listp symbol)
+              (setq name (car symbol))
+              (setq position (cdr symbol)))
+             ((stringp symbol)
+              (setq name symbol)
+              (setq position
+                    (get-text-property 1 'org-imenu-marker symbol))))
+            (unless (or (null position) (null name)
+                        (string= (car imenu--rescan-item) name))
+              (add-to-list 'symbol-names name)
+              (add-to-list 'name-and-pos (cons name position))))))))
+
+(global-set-key (kbd "M-i") 'ido-goto-symbol)
 
 (setq eshell-started nil)
 (setq w3m-started nil)
