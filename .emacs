@@ -22,14 +22,10 @@
 (setq line-number-mode t)
 
 (setq display-time-24hr-format t)
-(setq display-time-day-and-date t)
 (display-time)
-(setq calendar-date-display-form (quote ((format "%04s-%02d-%02d" year (string-to-int month) (string-to-int day)))))
 (setq calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))))
 (setq calendar-week-start-day 1)
 (setq european-calendar-style t)
-
-
 
 (setq initial-scratch-message nil)
 ;; Text and the such
