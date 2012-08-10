@@ -3,6 +3,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
+(setq default-input-method "russian-computer")
+
 (require 'git)
 
 (require 'uniquify)
@@ -146,7 +148,6 @@
       cperl-indent-parens-as-block t)
 
 ;;; TCL
-
 (setq tcl-application "/usr/bin/tclsh8.5")
 
 ;;; W3M
@@ -157,7 +158,6 @@
 (setq browse-url-browser-function 'w3m-browse-url)
 
 ;;
-
 (defun push-mark-no-activate ()
   "Pushes `point' to `mark-ring' and does not activate the region
 Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
@@ -247,7 +247,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (default-layout)
 
 ;;; TRAMP
-
 (require 'tramp)
 (setq tramp-default-method "scpc")
 (setq tramp-default-user "paul7")
@@ -257,7 +256,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (grep-apply-setting 'grep-command "echo; grep -n -e ") 
 
 ;; whitespace-mode
-
 (require 'whitespace)
 (setq whitespace-style '(face tabs spaces space-mark tab-mark))
 (global-set-key "\C-cw" 'whitespace-mode)
@@ -291,6 +289,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
-;;; server
+;;; temporary shell
+(defun tmp-shell ()
+  (interactive)
+  (let ((shell-buffer-name 
+         (concat (buffer-name (current-buffer)) 
+                 ":*tmp-shell*")))
+    (shell shell-buffer-name)))
 
+;;; server
 (server-start)
