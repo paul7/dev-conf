@@ -23,19 +23,11 @@
 
 (defun haskell-layout ()
   (interactive)
-  (unless eshell-started
-    (eshell)
-    (setq eshell-started t))
-  (unless w3m-started
-    (w3m)
-    (setq w3m-started t))
-  (unless haskell-started
-    (run-haskell)
-    (setq haskell-started t))
+  (w3m)
+  (run-haskell)
   (delete-other-windows)
   (split-window-horizontally)
-  (switch-to-buffer "*eshell*")
-  (end-of-buffer)
+  (switch-to-buffer "*scratch*")
   (other-window 1)
   (split-window-vertically)
   (switch-to-buffer "*w3m*")

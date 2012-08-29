@@ -30,25 +30,14 @@
       (call-interactively 'common-lisp-hyperspec))))
 
 ;; frame layout
-(defun slime-layout ()
+(defun slime-layout (&optional run-lisp)
   (interactive)
-
-  (unless eshell-started
-    (eshell)
-    (setq eshell-started t))
-
-  (unless w3m-started
-    (w3m)
-    (setq w3m-started t))
-
-  (unless slime-started
-    (slime)
-    (setq slime-started t))
-
+  (w3m)
+  (when run-lisp
+    (slime))
   (delete-other-windows)
   (split-window-horizontally)
-  (switch-to-buffer "*eshell*")
-  (end-of-buffer)
+  (switch-to-buffer "*scratch*")
   (other-window 1)
   (split-window-vertically)
   (switch-to-buffer "*w3m*")
@@ -56,4 +45,4 @@
   (switch-to-buffer "*slime-repl sbcl*")
   (end-of-buffer))
 
-(slime-layout)
+(slime-layout t)

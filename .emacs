@@ -230,22 +230,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (global-set-key (kbd "M-i") 'ido-goto-symbol)
 
-(setq eshell-started nil)
-(setq w3m-started nil)
-(setq slime-started nil)
-(setq haskell-started nil)
-
-(defun default-layout ()
-  (interactive)
-  (unless eshell-started
-    (eshell)
-    (setq eshell-started t))
-  (delete-other-windows)
-  (switch-to-buffer "*eshell*")
-  (end-of-buffer))
-
-(default-layout)
-
 ;;; TRAMP
 (require 'tramp)
 (setq tramp-default-method "scpc")
