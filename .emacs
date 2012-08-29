@@ -133,7 +133,7 @@
 (setq cperl-electric-parens nil)
 (setq cperl-electric-keywords t)
 (setq cperl-font-lock t)
-(setq cperl-lazy-help-time 1)
+(setq cperl-lazy-help-time nil)
 
 (add-hook 'cperl-mode-hook
           (function (lambda ()
