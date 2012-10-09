@@ -281,5 +281,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
                  ":*tmp-shell*")))
     (shell shell-buffer-name)))
 
+;;; go offline
+(defun go-offline ()
+  (interactive)
+  (save-some-buffers)
+  (tramp-cleanup-all-connections))
+
 ;;; server
 (server-start)
