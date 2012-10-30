@@ -284,8 +284,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;;; go offline
 (defun go-offline ()
   (interactive)
-  (save-some-buffers)
+;  (save-some-buffers)
   (tramp-cleanup-all-connections))
+
+;;; fci
+(require 'fill-column-indicator)
+(setq-default fci-rule-column 80)
+(add-hook 'cperl-mode-hook 'fci-mode)
+(add-hook 'python-mode-hook 'fci-mode)
+(add-hook 'haskell-mode-hook 'fci-mode)
+(add-hook 'lisp-mode-hook 'fci-mode)
 
 ;;; server
 (server-start)
