@@ -115,6 +115,12 @@
 (global-set-key [A-up] 'windmove-up)              ; move to upper window
 (global-set-key [A-down] 'windmove-down)          ; move to downer window
 
+(defun literal-tab ()
+  (interactive)
+  (insert "\t"))
+
+(global-set-key (kbd "<backtab>") 'literal-tab))))
+
 (defun load-slime ()
   (interactive)
   (load-file "~/.emacs-slime"))
@@ -136,9 +142,6 @@
 (setq cperl-lazy-help-time nil)
 
 (add-hook 'cperl-mode-hook
-          (function (lambda ()
-                      (setq indent-tabs-mode t))))
-(add-hook 'perl-mode-hook
           (function (lambda ()
                       (setq indent-tabs-mode t))))
 
@@ -239,17 +242,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (autoload 'grep-apply-setting "grep")
 (grep-apply-setting 'grep-command "echo; grep -n -e ") 
 
-;; whitespace-mode
-(require 'whitespace)
-(setq whitespace-style '(face tabs spaces space-mark tab-mark))
-(global-set-key "\C-cw" 'whitespace-mode)
-(add-hook 'cperl-mode-hook
-          (function (lambda ()
-                      (whitespace-mode))))
-(add-hook 'python-mode-hook
-          (function (lambda ()
-                      (whitespace-mode))))
-
 ;;; LaTeX
 (setq latex-run-command "pdflatex")
 (defun string-search-and-replace (search replace string)
@@ -287,13 +279,27 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 ;  (save-some-buffers)
   (tramp-cleanup-all-connections))
 
+
+;; whitespace-mode
+(require 'whitespace)
+(setq whitespace-style '(face tabs spaces space-mark tab-mark))
+(global-set-key "\C-cw" 'whitespace-mode)
+
 ;;; fci
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 80)
-(add-hook 'cperl-mode-hook 'fci-mode)
-(add-hook 'python-mode-hook 'fci-mode)
-(add-hook 'haskell-mode-hook 'fci-mode)
-(add-hook 'lisp-mode-hook 'fci-mode)
+(global-set-key "\C-cf" 'fci-mode)
+
+(defun code-mode ()
+  (interactive)
+  (fci-mode)
+  (whitespace-mode))
+(global-set-key "\C-cp" 'code-mode)
+
+(add-hook 'cperl-mode-hook 'code-mode)
+(add-hook 'python-mode-hook 'code-mode)
+(add-hook 'haskell-mode-hook 'code-mode)
+(add-hook 'lisp-mode-hook 'code-mode)
 
 ;;; server
 (server-start)
