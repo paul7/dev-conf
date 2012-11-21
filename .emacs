@@ -119,7 +119,7 @@
   (interactive)
   (insert "\t"))
 
-(global-set-key (kbd "<backtab>") 'literal-tab))))
+(global-set-key (kbd "<backtab>") 'literal-tab)
 
 (defun load-slime ()
   (interactive)
