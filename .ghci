@@ -1,0 +1,5 @@
+:def fhoogle \x -> return $ ":!hoogle -c \"" ++ x ++ "\""
+:def hoogle \x -> return $ ":!hoogle -c -n 10 \"" ++ x ++ "\""
+:def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
+:def cls \_ -> (Control.Monad.replicateM_ 100 $ putStrLn "") >> return ""
+:set -Wall
