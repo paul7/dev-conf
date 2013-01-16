@@ -1,4 +1,5 @@
 (add-to-list 'load-path "/home/paul7/elisp")
+(add-to-list 'load-path "/home/paul7/elisp/ghc-mod")
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -300,6 +301,17 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'python-mode-hook 'code-mode)
 (add-hook 'haskell-mode-hook 'code-mode)
 (add-hook 'lisp-mode-hook 'code-mode)
+
+;;; clear tag-ring
+
+(defun clear-find-tag-ring ()
+  "Clear find-tag-ring"
+  (interactive)
+  (while (not (ring-empty-p find-tag-marker-ring))
+    (ring-remove find-tag-marker-ring 0))
+  (message "find-tag ring truncated"))
+
+(global-set-key (kbd "ESC M-.") 'clear-find-tag-ring)
 
 ;;; server
 (server-start)
