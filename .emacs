@@ -239,6 +239,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (setq tramp-default-method "scpc")
 (setq tramp-default-user "paul7")
 
+;;; (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/plink:%h:"))))
+;;; breqwas: и вместо ssh:login@host:/file надо писать root:login@host:/file
+
 ;;; workaround for grep-mode lossage
 (autoload 'grep-apply-setting "grep")
 (grep-apply-setting 'grep-command "echo; grep -n -e ") 
@@ -293,7 +296,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (defun code-mode ()
   (interactive)
-  (fci-mode)
+;  (fci-mode)
   (whitespace-mode))
 (global-set-key "\C-cp" 'code-mode)
 
@@ -304,14 +307,23 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;; clear tag-ring
 
-(defun clear-find-tag-ring ()
+(defun truncate-find-tag-ring ()
   "Clear find-tag-ring"
   (interactive)
   (while (not (ring-empty-p find-tag-marker-ring))
     (ring-remove find-tag-marker-ring 0))
   (message "find-tag ring truncated"))
 
-(global-set-key (kbd "ESC M-.") 'clear-find-tag-ring)
+(global-set-key (kbd "ESC M-.") 'truncate-find-tag-ring)
+
+;;; J Mode
+(add-to-list 'load-path "~/elisp/j-mode")
+(load "j-mode")
+
+(add-to-list 'auto-mode-alist '("\\.ij[rstp]$" . j-mode))
+
 
 ;;; server
 (server-start)
+
+

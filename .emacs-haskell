@@ -1,38 +1,95 @@
 ;; -*- Mode: Emacs-Lisp -*-
-(load "~/elisp/haskell-mode/haskell-site-file.el")
+;(load "~/elisp/haskell-mode/haskell-site-file.el")
+(add-to-list 'load-path "~/elisp/haskell-mode/")
+(require 'haskell-mode-autoloads)
+(add-to-list 'Info-default-directory-list "~/elisp/haskell-mode/")
 
-(setq haskell-program-name "ghci")
+;;; agda
+;(load-file (let ((coding-system-for-read 'utf-8))
+;                (shell-command-to-string "agda-mode locate")))
 
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;;; hsenv
+;(load-file "~/elisp/hsenv.el")
+
+;(defun hsenv-create (name)
+;  (interactive (list (read-string "hsenv name: " "")))
+;  (let ((cmd (concat "hsenv --name=" name)))
+;    (message cmd)
+;    (shell-command cmd)))
+
+(defvar cabal-use-sandbox nil)
+(setq-default haskell-program-name "ghci")
+(defun cabal-toggle-sandboxing-local ()
+  (interactive)
+  (set (make-local-variable 'cabal-use-sandbox) (not cabal-use-sandbox))
+  (message (concat "This buffer haskell-program-name is ``"
+                   (set (make-local-variable 'haskell-program-name)
+                        (if cabal-use-sandbox
+                            "cabal repl "
+                          "ghci"))
+                   "''")))
+
+(defun cabal-toggle-sandboxing ()
+  (interactive)
+  (setq cabal-use-sandbox (not cabal-use-sandbox))
+  (message (concat "haskell-program-name is ``"
+                   (setq haskell-program-name
+                        (if cabal-use-sandbox
+                            "cabal repl "
+                          "ghci"))
+                   "''")))
+
+(defvar insert-my-arrow-done nil)
+(defadvice haskell-font-lock-keywords-create (before insert-my-arrow activate)
+  (unless insert-my-arrow-done
+    (push (cons "=>" (decode-char 'ucs #X21E8)) haskell-font-lock-symbols-alist)
+    (setq insert-my-arrow-done t)))
+
+(defadvice inferior-haskell-process (before hs-process-always-ask activate)
+  (ad-set-args 0 (list '(4))))
+
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 ;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
-(add-hook 'haskell-mode-hook 'font-lock-mode)
+;(add-hook 'haskell-mode-hook 'font-lock-mode)
+
 (setq haskell-font-lock-symbols t)
 
+(autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook 
    (lambda ()
-     (local-set-key (kbd "C-c C-g") 'hoogle)))
+     (turn-on-haskell-doc-mode)
+     (turn-on-haskell-indent)
+     (font-lock-mode)
+     (local-set-key (kbd "C-c C-g") 'hoogle)
+     (local-set-key (kbd "C-c C-u") 'cabal-toggle-sandboxing-local)
+     (ghc-init)))
 
-(autoload 'ghc-init "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(add-hook 'haskell-cabal-mode-hook 
+   (lambda ()
+     (local-set-key (kbd "C-c C-g") 'hoogle)
+     (local-set-key (kbd "C-c C-u") 'cabal-toggle-sandboxing-local)
+     (local-set-key (kbd "C-c C-l") 'switch-to-haskell)))
+
+;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 (setq ghc-type-key "\C-c\C-S-t")
 (setq ghc-completion-key (kbd "<C-tab>"))
 
 (defun haskell-layout ()
   (interactive)
-  (w3m)
+;  (w3m)
   (run-haskell)
   (delete-other-windows)
-  (split-window-horizontally)
   (switch-to-buffer "*scratch*")
-  (other-window 1)
-  (split-window-vertically)
-  (switch-to-buffer "*w3m*")
+  (split-window-horizontally)
+;  (other-window 1)
+;  (split-window-vertically)
+;  (switch-to-buffer "*w3m*")
   (other-window 1)
   (switch-to-buffer "*haskell*")
   (end-of-buffer))
 
-(haskell-layout)
+;(haskell-layout)
