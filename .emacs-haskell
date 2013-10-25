@@ -42,7 +42,11 @@
 (defvar insert-my-arrow-done nil)
 (defadvice haskell-font-lock-keywords-create (before insert-my-arrow activate)
   (unless insert-my-arrow-done
-    (push (cons "=>" (decode-char 'ucs #X21E8)) haskell-font-lock-symbols-alist)
+    (setq haskell-font-lock-symbols-alist
+          (append (list (cons "=>" (decode-char 'ucs #X21E8))
+                        (cons "sum" (decode-char 'ucs #X2211))
+                        (cons "product" (decode-char 'ucs #X220F)))
+                  haskell-font-lock-symbols-alist))
     (setq insert-my-arrow-done t)))
 
 (defadvice inferior-haskell-process (before hs-process-always-ask activate)
