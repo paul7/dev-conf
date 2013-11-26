@@ -1,3 +1,11 @@
+;;; 24 transition
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("marmalade" . "http://marmalade-repo.org/packages/")))
+  (package-initialize))
+
 (add-to-list 'load-path "/home/paul7/elisp")
 (add-to-list 'load-path "/home/paul7/elisp/ghc-mod")
 
@@ -20,6 +28,8 @@
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
+(setq ido-default-buffer-method 'selected-window)
+(setq ido-default-file-method 'selected-window)
 
 (setq column-number-mode t)
 (setq line-number-mode t)
@@ -317,13 +327,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (global-set-key (kbd "ESC M-.") 'truncate-find-tag-ring)
 
 ;;; J Mode
-(add-to-list 'load-path "~/elisp/j-mode")
-(load "j-mode")
+;(add-to-list 'load-path "~/elisp/j-mode")
+;(load "j-mode")
 
-(add-to-list 'auto-mode-alist '("\\.ij[rstp]$" . j-mode))
+;(add-to-list 'auto-mode-alist '("\\.ij[rstp]$" . j-mode))
 
+;;; K Mode
+(require 'k-mode)
+(setq k-program-name "~/build/kona/k")
 
 ;;; server
 (server-start)
-
-
