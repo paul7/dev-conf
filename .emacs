@@ -61,6 +61,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; no visible bell
 (setq visible-bell nil)
+(blink-cursor-mode 0)
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -314,6 +315,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'python-mode-hook 'code-mode)
 (add-hook 'haskell-mode-hook 'code-mode)
 (add-hook 'lisp-mode-hook 'code-mode)
+(add-hook 'k-mode-hook 'code-mode)
 
 ;;; clear tag-ring
 
@@ -326,6 +328,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 (global-set-key (kbd "ESC M-.") 'truncate-find-tag-ring)
 
+(defun revisit-tags-table ()
+  "Reload tags"
+  (interactive)
+  (if tags-file-name
+      (visit-tags-table tags-file-name)
+    (message "no tags loaded")))
+
 ;;; J Mode
 ;(add-to-list 'load-path "~/elisp/j-mode")
 ;(load "j-mode")
@@ -334,7 +343,49 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;; K Mode
 (require 'k-mode)
-(setq k-program-name "~/build/kona/k")
+(setq k-program-name "~/bin/k")
+
+;;; Q Mode
+(add-to-list 'load-path "~/elisp/q-mode")
+(load "kdbp-mode")
+
+(autoload 'q-mode "q-mode")
+(autoload 'q-help "q-mode")
+(autoload 'run-q "q-mode")
+(autoload 'kdbp-mode "kdbp-mode")
+
+(setq auto-mode-alist (cons '("\\.[kq]$" . kdbp-mode) auto-mode-alist))
+
+(defun q-load-script ()
+  (interactive)
+  (let ((cmd (concat "\\l " (buffer-file-name)))
+        (actwindow (selected-window)))
+    (save-buffer)
+    (kill-new cmd)
+    (if (get-buffer "*q-eval*")
+        (pop-to-buffer "*q-eval*")
+      (error "No script is running"))
+    (end-of-buffer)
+    (yank)
+    (comint-send-input)
+    (select-window actwindow)))
+
+(add-hook 'q-mode-hook 
+          (lambda ()
+            (local-set-key (kbd "C-c l") 'q-load-script)))
+
+;;; Scala mode
+(setq exec-path (append (list "/home/paul7/opt/scala-2.10.3/bin" ) exec-path))
+(require 'scala-mode-auto)
+(add-to-list 'load-path "/home/paul7/elisp/ensime/elisp")
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+
+;;; GNU APL mode
+;(add-to-list 'load-path "/home/paul7/elisp/gnu-apl-mode")
+;(add-to-list 'load-path "/home/paul7/elisp/emacs-noflet")
+;(require 'gnu-apl-mode)
 
 ;;; server
 (server-start)
