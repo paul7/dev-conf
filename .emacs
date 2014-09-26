@@ -316,6 +316,8 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-hook 'haskell-mode-hook 'code-mode)
 (add-hook 'lisp-mode-hook 'code-mode)
 (add-hook 'k-mode-hook 'code-mode)
+(add-hook 'q-mode-hook 'code-mode)
+(add-hook 'vhdl-mode-hook 'code-mode)
 
 ;;; clear tag-ring
 
