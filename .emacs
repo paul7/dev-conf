@@ -383,6 +383,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
+;;; C mode
+(add-hook 'c-mode-hook 
+          (lambda ()
+            (setq c-default-style "linux")
+            (setq c-basic-offset 4)
+            (setq tab-width 4)
+            (setq indent-tabs-mode t)
+            (code-mode)))
 
 ;;; GNU APL mode
 ;(add-to-list 'load-path "/home/paul7/elisp/gnu-apl-mode")
