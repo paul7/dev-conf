@@ -389,7 +389,15 @@ This is the same as using \\[set-mark-command] with the prefix argument."
             (setq c-default-style "linux")
             (setq c-basic-offset 4)
             (setq tab-width 4)
-            (setq indent-tabs-mode t)
+;            (setq indent-tabs-mode t)
+            (code-mode)))
+
+(add-hook 'c++-mode-hook 
+          (lambda ()
+            (setq c-default-style "linux")
+            (setq c-basic-offset 4)
+            (setq tab-width 4)
+;            (setq indent-tabs-mode t)
             (code-mode)))
 
 ;;; GNU APL mode
@@ -399,3 +407,18 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;; server
 (server-start)
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(agda2-include-dirs (quote ("." "/home/paul7/agda/stdlib/src"))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
