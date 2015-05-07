@@ -3,6 +3,7 @@
 (when (>= emacs-major-version 24)
   (require 'package)
   (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.milkbox.net/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")))
   (package-initialize))
 
@@ -166,7 +167,7 @@
 (setq tcl-application "/usr/bin/tclsh8.5")
 
 ;;; W3M
-(require 'w3m-load)
+;(require 'w3m-load)
 
 (setq w3m-use-tab t)
 
@@ -247,7 +248,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;; TRAMP
 (require 'tramp)
-(setq tramp-default-method "scpc")
+(setq tramp-default-method "scp")
 (setq tramp-default-user "paul7")
 
 ;;; (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/plink:%h:"))))
@@ -378,27 +379,30 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ;;; Scala mode
 (setq exec-path (append (list "/home/paul7/opt/scala-2.10.3/bin" ) exec-path))
-(require 'scala-mode-auto)
+;(require 'scala-mode-auto)
 (add-to-list 'load-path "/home/paul7/elisp/ensime/elisp")
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ;;; C mode
-(add-hook 'c-mode-hook 
-          (lambda ()
-            (setq c-default-style "linux")
-            (setq c-basic-offset 4)
-            (setq tab-width 4)
-;            (setq indent-tabs-mode t)
-            (code-mode)))
+(add-to-list 'load-path "/home/paul7/elisp/ggtags")
+(require 'ggtags)
 
-(add-hook 'c++-mode-hook 
-          (lambda ()
-            (setq c-default-style "linux")
-            (setq c-basic-offset 4)
-            (setq tab-width 4)
-;            (setq indent-tabs-mode t)
-            (code-mode)))
+(defun c-init ()
+  (set (make-local-variable 'company-backends)
+       (remove 'company-clang company-backends))
+  (company-mode)
+  (ggtags-mode 1)
+  (setq c-default-style "linux")
+  (setq c-basic-offset 4)
+  (setq tab-width 4))
+                                        ;            (setq indent-tabs-mode t)
+                                        ;            (code-mode)))
+
+
+(add-hook 'c-mode-hook 'c-init)
+
+(add-hook 'c++-mode-hook 'c-init)
 
 ;;; GNU APL mode
 ;(add-to-list 'load-path "/home/paul7/elisp/gnu-apl-mode")
