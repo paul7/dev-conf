@@ -13,6 +13,32 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
+; http://ru-emacs.livejournal.com/82428.html
+(defun reverse-input-method (input-method)
+  "Build the reverse mapping of single letters from INPUT-METHOD."
+  (interactive
+   (list (read-input-method-name "Use input method (default current): ")))
+  (if (and input-method (symbolp input-method))
+      (setq input-method (symbol-name input-method)))
+  (let ((current current-input-method)
+        (modifiers '(nil (control) (meta) (control meta))))
+    (when input-method
+      (activate-input-method input-method))
+    (when (and current-input-method quail-keyboard-layout)
+      (dolist (map (cdr (quail-map)))
+        (let* ((to (car map))
+               (from (quail-get-translation
+                      (cadr map) (char-to-string to) 1)))
+          (when (and (characterp from) (characterp to))
+            (dolist (mod modifiers)
+              (define-key local-function-key-map
+                (vector (append mod (list from)))
+                (vector (append mod (list to)))))))))
+    (when input-method
+      (activate-input-method current))))
+
+(reverse-input-method "russian-computer")
+
 (setq default-input-method "russian-computer")
 
 (require 'git)
@@ -388,10 +414,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (add-to-list 'load-path "/home/paul7/elisp/ggtags")
 (require 'ggtags)
 
+(setq company-idle-delay 0)
+
 (defun c-init ()
   (set (make-local-variable 'company-backends)
        (remove 'company-clang company-backends))
-  (company-mode)
+;  (company-mode)
   (ggtags-mode 1)
   (setq c-default-style "linux")
   (setq c-basic-offset 4)
